@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__nuxt,
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+body {
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@font-face {
+  /* 阿里妈妈数黑体 */
+  font-family: 'Alibaba Sans Black';
+  src: url('../fonts/AlimamaShuHeiTi-Bold.ttf') format('truetype');
+  /* 如果字体文件是.otf格式，使用format('opentype') */
+}
+
+@font-face {
+  /* 阿里巴巴普惠体 */
+  font-family: 'AlibabaPuHuiTi';
+  src: url('../fonts/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'YouSheBiaoTiYuan';
+  src: url('../fonts/YouSheBiaoTiYuan-2.otf') format('opentype');
+}
