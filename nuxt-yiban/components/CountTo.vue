@@ -4,7 +4,7 @@ import { isNumber } from '@/utils/is'
 import { propTypes } from '@/utils/propTypes'
 import { useDesign } from '@/hooks/web/useDesign'
 
-defineOptions({ name: 'CountTo' })
+// defineOptions({ name: 'CountTo' })
 
 const { getPrefixCls } = useDesign()
 
@@ -12,7 +12,7 @@ const prefixCls = getPrefixCls('count-to')
 
 const props = defineProps({
   startVal: propTypes.number.def(0),
-  endVal: propTypes.number.def(2021),
+  endVal: propTypes.number.def(2023),
   duration: propTypes.number.def(3000),
   autoplay: propTypes.bool.def(true),
   decimals: propTypes.number.validate((value: number) => value >= 0).def(0),

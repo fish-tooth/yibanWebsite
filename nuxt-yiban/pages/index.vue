@@ -32,7 +32,7 @@
         <div class="cb-content">
           <div
             v-for="(list, index) in coreList" :key="index"
-            :class="list.id==defaultActive? 'cb-item-active':'cb-item'"
+            :class="list.id==defaultActive?'cb-item-active':'cb-item'"
             @mouseenter="handleMouseOver($event)"
             @mouseleave="handleMouseLeave($event)"> 
             <a style="color:rgb(255,255,255);">
@@ -101,7 +101,7 @@ const handleMouseLeave = function($event: any){
 }
 
 // 数据展示
-const dataList = [{
+const dataList = reactive([{
   title: "累计陪伴学生人数",
   data: 10087
 },
@@ -112,7 +112,7 @@ const dataList = [{
 {
   title: "累计开展专项辅导陪伴项目数",
   data: 215
-}];
+}]);
 
 // const dataList = ref([{},{},{}]);
 // const getDataList = async () => {  // 获取展示数据
