@@ -5,7 +5,7 @@
             class="el-menu-demo"
             mode="horizontal"
             :ellipsis="false"
-            @select="handleSelect">
+        >
             <div class="title">
                 <img class="logo" src="/favico.ico" alt="logo" />
                 <div class="name">以伴青少年<br />发展中心</div>
@@ -47,7 +47,6 @@
             class="el-menu-demo"
             mode="vertical"
             :ellipsis="false"
-            @select="handleSelect"
         >
             <div class="flex-grow" />
             <div v-for="(list, index) in menu">
@@ -77,9 +76,9 @@ import { ref } from 'vue';
 import 'element-plus/theme-chalk/display.css'
 
 const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+// const handleSelect = (key: string, keyPath: string[]) => {
+//   console.log(key, keyPath)
+// }
 
 const menu = reactive([
     {
@@ -175,9 +174,6 @@ $buttonColor: #f2f2f2;
     align-items: center;
     border-bottom: none !important;
 }
-// .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-//     border-bottom: 3px solid rgb(255, 104, 104) !important;
-// }
 .el-menu-item {
     &:hover {    
     border-bottom: 3px solid rgb(255, 104, 104) !important;
