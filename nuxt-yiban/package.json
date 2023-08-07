@@ -20,8 +20,10 @@
     "sass": "^1.58.3"
   },
   "dependencies": {
+    "@css-render/vue3-ssr": "^0.15.12",
     "@tinymce/tinymce-vue": "^5.1.0",
     "countup.js": "^2.7.0",
+    "css-render": "^0.15.12",
     "element-plus": "^2.2.32",
     "swiper": "^8.0.0",
     "tinymce": "^6.4.1",

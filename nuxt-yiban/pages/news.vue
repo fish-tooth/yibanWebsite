@@ -1,6 +1,5 @@
 <template>
     <Layout>
-
         <div class="bg">
             <!-- 顶部背景 -->
             <div class="news-title">
@@ -35,16 +34,15 @@
                             >
                               <el-row :gutter="24" justify="space-between" >
                                 <el-col :xl="12" :lg="12" :md="24" :sm="24" :xs="24" v-for="(item,index) in newsList" :key="`card-${index}`">
-                                  <el-card shadow="hover" class="mb-10px">
-                                      <div style="display: flex;">
-                                        <img src="@/assets/images/join.png" class="cover-img"/>
+                                  <el-card shadow="hover" class="mb-10px"> 
+                                      <a :href="item.link" target="_blank"  style="display: flex;">
+                                        <img :src="item.coverImg" class="cover-img"/>
                                         <div class="nc-content">
-                                          <h1 class="nc-date">{{ item.date }}</h1>
-                                          <p class="nc-title">{{item.title}}</p>
-                                          <p class="nc-intro">{{ item.intro }}</p>
+                                          <h1 class="nc-date">{{ formatDate(item.date) }}</h1>
+                                          <p class="nc-title">{{ item.title}}</p>
+                                          <p class="nc-intro">{{ item.content.length<40? item.content : item.content.slice(0,41)+'...' }}</p>
                                         </div>
-                                        
-                                      </div>
+                                      </a>
                                   </el-card>
                                 </el-col> 
                               </el-row>
@@ -55,18 +53,24 @@
                     </el-col>                 
                   </el-row>
                 </div>
-
+                <!-- <Pagination
+                    :total="3"
+                    v-model:page="queryParams.pageNo"
+                    v-model:limit="queryParams.pageSize"
+                    @pagination=""
+                /> -->
             </div>
             <div class="ball-bottom"></div>
         </div>
-
-
     </Layout>
 </template>
 
 <script setup lang="ts">
 import Layout from "@/layouts/default.vue";
 import { ref, computed } from 'vue';
+import { getNewsArticle } from "@/api";
+import { formatDate } from '../utils/formatDate'
+
 useHead({
     title: "新闻资讯",
     titleTemplate(title) {
@@ -86,34 +90,72 @@ useHead({
         },
     ],
 });
-const newsYear = 2023;
+const newsYear = ref('2023');
 
+const queryParams = reactive({
+  pageNo: 1,
+  pageSize: 10,
+  key: undefined,
+  name: undefined,
+  category: undefined
+})
+
+// 没有连接数据库可以用以下数据测试一下
 const newsList = reactive([
     {
         id: 1,
-        title: '小伴开春的第一天', 
-        coverImg: '@/assets/images/yiban_bg.png',
-        date: '02-01',
-        intro: '新的一年，小伴也会坚定信念，与大家一起，为更多有需要的孩子们带去公益梦,一起伴梦同行......'
+        date: '2023-07-27',
+        title: '打开西关大屋与静电的神奇“秘钥”', 
+        content: '7月27日困难儿童陪伴计划-线下主题成长营以伴趣味科普课程《西关大屋》《生活中的静电》在南村西片社区开课啦！',
+        coverImg: 'https://s1.ax1x.com/2023/08/06/pPA19TH.jpg',
+        tag: 'course',
+        isTop: 1,
+        link: 'https://mp.weixin.qq.com/s/2uQ2FMBbg4jSKoupr8_Tgg'
 
     },
     {
-        id: 1,
-        title: '小伴开春的第一天', 
-        coverImg: '@/assets/images/yiban_bg.png',
-        date: '02-01',
-        intro: '新的一年，小伴也会坚定信念，与大家一起，为更多有需要的孩子们带去公益梦,一起伴梦同行......'
-
+        id: 2,
+        date: '2023-07-21',
+        title: '这个夏天，和我们一起生产“多巴胺”吧！', 
+        content: '截止至2023年7月9日留守儿童云陪伴计划项目共收到来自8个地区 12个项目点累计452人的伴学需求',
+        coverImg: 'https://s1.ax1x.com/2023/08/06/pPAlXSx.jpg',
+        tag: 'course',
+        isTop: 1,
+        link: 'https://mp.weixin.qq.com/s/NoHWlG3obGhWDmSgElVmCw'
     },
     {
-        id: 1,
-        title: '小伴开春的第一天', 
-        coverImg: '@/assets/images/yiban_bg.png',
-        date: '02-01',
-        intro: '新的一年，小伴也会坚定信念，与大家一起，为更多有需要的孩子们带去公益梦,一起伴梦同行......'
-
+        id: 3,
+        date: '2023-06-28',
+        title: '交流学习|广州番禺职业技术学院师生到访以伴', 
+        content: '2023年6月26日，在王雪莲老师的带领下',
+        coverImg: 'https://s1.ax1x.com/2023/08/06/pPAlNFA.jpg',
+        tag: 'course',
+        isTop: 1,
+        link: 'https://mp.weixin.qq.com/s/SEe4dQAH2g_RSn39tq75IA'
     }
 ])
+
+// const getNewsList = async () => {
+//       const res = await getNewsArticle();
+//       console.log('res.code:'+res.code);
+//       if (res?.code == 200) {
+//         newsList.value = res?.result; 
+//         newsYear.value = newsList.value[0]?.date.slice(0,4) // 获取年份大标题
+//         console.log(newsList.value)
+//         // useHead({
+//         //   title: newsList.value.title,
+//         //   viewport:
+//         //     "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no",
+//         //   charset: "utf-8",
+//         //   meta: [{ name: "description", content: newsList.value.desc }],
+//         // });
+//       }
+//     };
+
+//     watchEffect(() => {
+//       getNewsList();
+//     });
+
 </script>
 
 
@@ -239,10 +281,12 @@ const newsList = reactive([
     .nc-content {
       margin-left: 40px;
     }
-
+    
     .cover-img {
+      
       display: flex !important; 
-      width: 280px !important;
+      width: 240px !important;
+      height: 180px !important;
       background-color: azure;
     }
     .nc-date {
@@ -261,7 +305,11 @@ const newsList = reactive([
       color: rgba(158, 64, 38, 0.78);
     }
 }
-/////////
+
+.mb-10px {
+  min-height: 220px;
+  line-height: 1.5;
+}
 .el-row {
   margin-bottom: 20px;
 }
@@ -276,11 +324,12 @@ const newsList = reactive([
   border-radius: 4px;
   min-height: 36px;
 }
-//  ////
+/* element-plus 样式 */
 .outer-el-card {
   box-shadow: none !important;
 }
 .el-card {
+  overflow: hidden;
   border: 0 !important;
   background-color: transparent !important;
 }

@@ -17,21 +17,20 @@
             <div class="program-title">
                 <p>困难儿童陪伴计划</p>
                 <a href="#" class="more-program">查看更多 >
-                    <!-- <el-icon><ElIconArrowRight style="width: 30px; height: 30px;"/></el-icon> -->
                 </a>
             </div>
             
             <div>
                 <div class="program-content">
                
-                    <div class="program-block" v-loading="loading" v-for="(item, index) in videosList" :key="index">
-                        <NuxtLink>
+                    <div class="program-block" v-for="(item, index) in videosList" :key="index">
+                        <!-- <video class="program-cover-img" src="" poster="@/assets/images/demo_program.jpg"> -->
                             <img class="program-cover-img" src="@/assets/images/demo_program.jpg"/>
                             <div style="padding: 30px;">
                                 <p class="item-title">{{ item.title }}</p>
                                 <p class="item-intro">{{ item.intro }} </p>
                             </div>
-                        </NuxtLink>
+                        <!-- </video> -->
                     </div>
                         
                   
@@ -75,8 +74,7 @@
 <script setup lang="ts">
 import Layout from "@/layouts/default.vue";
 import Component from "vue-class-component";
-// import * as ModelApi from '@/api/bpm/model'
-components: [ ElIconArrowRight]
+
 useHead({
     title: "公益视频",
     titleTemplate(title) {
@@ -91,7 +89,6 @@ useHead({
     },
     script: [
         {
-            // src: "assets/a.js",
             body: true,
         },
     ],

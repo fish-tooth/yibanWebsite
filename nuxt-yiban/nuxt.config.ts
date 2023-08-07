@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { resolve } from "path";
 export default defineNuxtConfig({
+  components: [
+    {
+      path: '@/components',
+      extensions: ['.vue']
+    }
+  ],
   modules: ["@element-plus/nuxt"],
   elementPlus: {
     // options
@@ -8,6 +14,7 @@ export default defineNuxtConfig({
   alias: {
     "@": resolve(__dirname, "./"),
   },
+  plugins: [],
   css: ["element-plus/dist/index.css", "@/assets/styles/global.scss"],
   postcss: {
     plugins: {

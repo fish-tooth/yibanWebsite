@@ -2,24 +2,23 @@
   <Layout>
     <div>
       <!-- 顶部背景组件 -->
-      <CommonTop :slogan="slogan"/>
+      <CommonTop :title="title" :intro="intro"/>
       <!-- 捐赠入口和数据展示 -->
       <el-row class="wrapper">
          <!-- 捐赠入口 -->
         <el-col class="about-us" :xl="12" :lg="12" :md="12" :sm="24" :xs="24">
-          <div></div>
         </el-col>
           <!-- 数据展示 -->
         <el-col class="serve-num" :xl="12" :lg="12" :md="12" :sm="24" :xs="24">
           <el-row justify="space-around">
             <el-col class="serve-item" 
-              v-for="(item, index) of serveNum" key="index"
+              v-for="(item, index) in dataList" :key="index"
               :xl="24" :lg="24" :md="24" :sm="12" :xs="24">
                 <!-- <p class="num" v-inserted>{{ item.num }}</p> -->
                 <CountTo
                   class="num"
                   :start-val="0"
-                  :end-val="item.num"
+                  :end-val="Number(item.data)"
                   :duration="2000"
                 />
                 <p class="title">{{ item.title }}</p>
@@ -32,11 +31,11 @@
         <div class="cb-title">我们的核心工作</div>
         <div class="cb-content">
           <div
-            v-for="(list, index) in  coreList " :key="index"
-            :class="list.id==defaultActive?'cb-item-active':'cb-item'"
+            v-for="(list, index) in coreList" :key="index"
+            :class="list.id==defaultActive? 'cb-item-active':'cb-item'"
             @mouseenter="handleMouseOver($event)"
             @mouseleave="handleMouseLeave($event)"> 
-            <a style="color: rgb(255,255,255);">
+            <a style="color:rgb(255,255,255);">
               <!-- <img  class="cb-cover-img" src="../assets/images/demo_cb.png"  alt=""> -->
               <div class="num">{{ list.num }}</div>
               <div>{{ list.title }}</div>
@@ -48,8 +47,8 @@
       <div class="current-project">
         <div class="cp-title">我们的行动正在发生</div>
         <div class="cp-content">
-          <div class="cp-item" v-for="(list, index) in  runningList" :key="index">
-            <a style="color: rgb(255,255,255)">
+          <div class="cp-item" v-for="(list, index) in runningList" :key="index">
+            <a style="color:rgb(255,255,255);">
               <div class="cp-text-card">
               <div class="cp-item-title">{{ list.title }}</div>
               <div class="cp-item-intro">{{ list.intro }}</div>
@@ -71,21 +70,8 @@
 
 <script setup lang="ts">
 import Layout from "@/layouts/default.vue";
-import { getCurrentInstance } from 'vue';
-import { CountUp } from 'vue-countup-v2'
-
-const delay = 1000;
-const endVal= 120500;
-      
-const options = {
-        useEasing: true,
-        useGrouping: true,
-        // separator: ',',
-        // decimal: '.',
-        // prefix: '$',
-        // suffix: '',
-}
-const that = getCurrentInstance()
+import { getIndexData } from "@/api"
+import { id } from "element-plus/es/locale";
 useHead({
   title: "首页",
   titleTemplate(title) {
@@ -96,8 +82,9 @@ useHead({
     { name: "keywords", content: "关键字1" },
   ],
 });
-
-const slogan = ['团队力量大','公益反响大'];
+// 顶部遮罩文字
+const title = ['团队力量大','公益反响大'];
+const intro = "让每个孩子都能享受更高水平、更有质量的教育";
 let defaultActive = ref(1);
 const active = ref(0);
 // 鼠标移入动画
@@ -114,18 +101,32 @@ const handleMouseLeave = function($event: any){
 }
 
 // 数据展示
-var serveNum = [{
+const dataList = [{
   title: "累计陪伴学生人数",
-  num: 10087
+  data: 10087
 },
 {
   title: "累计参加志愿者人数",
-  num: 2023
+  data: 2023
 },
 {
   title: "累计开展专项辅导陪伴项目数",
-  num: 215
+  data: 215
 }];
+
+// const dataList = ref([{},{},{}]);
+// const getDataList = async () => {  // 获取展示数据
+//   const res = await getIndexData();
+//   console.log('dataList',res);
+//   if (res?.code == 200) {
+//       dataList.value = res?.result; 
+//   }
+//   console.log('dataList:', dataList.value)  
+// }
+// watchEffect(() => {
+//       getDataList();
+// });
+
 // 核心工作
 var coreList = [{
   id: 1,
@@ -202,8 +203,8 @@ var runningList = [{
 
 onMounted(() => {
     // 在页面加载时调用的函数逻辑
-    
-});
+    // getDataList();
+})
 
 </script>
 

@@ -7,7 +7,7 @@
             :ellipsis="false"
             @select="handleSelect">
             <div class="title">
-                <img class="logo" src="@/public/favico.ico" alt="logo" />
+                <img class="logo" src="/favico.ico" alt="logo" />
                 <div class="name">以伴青少年<br />发展中心</div>
             </div>
  
@@ -15,7 +15,7 @@
             <div v-for="(list, index) in menu">
                 <el-sub-menu v-if="list.children" :key="list.index" :index="list.index+''"> 
                 <template #title>{{ list.name }}</template>
-                    <el-menu-item v-for="child in list.children" :key="child.index">
+                    <el-menu-item class="sub-item" v-for="child in list.children" :key="child.index">
                         <NuxtLink  :to="child.url">
                                 {{ child.name }}
                         </NuxtLink>
@@ -53,7 +53,7 @@
             <div v-for="(list, index) in menu">
                 <el-sub-menu v-if="list.children" :key="list.index" :index="list.index+''"> 
                 <template #title>{{ list.name }}</template>
-                    <el-menu-item v-for="child in list.children" :key="child.index">
+                    <el-menu-item class="sub-item" v-for="child in list.children" :key="child.index">
                         <nuxt-link  :to="child.url">
                                 {{ child.name }}
                         </nuxt-link>
@@ -80,7 +80,6 @@ const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
-
 
 const menu = reactive([
     {
@@ -176,19 +175,32 @@ $buttonColor: #f2f2f2;
     align-items: center;
     border-bottom: none !important;
 }
+// .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+//     border-bottom: 3px solid rgb(255, 104, 104) !important;
+// }
 .el-menu-item {
-    &:hover {
-    //   border-bottom: 3px solid $hoverColor !important;
-    //   color: $hoverColor !important;
-      background-color: #fef1f1 !important;
+    &:hover {    
+    border-bottom: 3px solid rgb(255, 104, 104) !important;
+    background-color: #fff !important;
     }
   }
 .el-sub-menu {
-    &:hover {
-      background-color: rgb(253, 233, 233) !important;
-    }
+    --el-menu-hover-bg-color: rgb(253, 233, 233) !important;
+   
 }
-
+.sub-item:hover {
+    border-bottom: 0 solid #fff !important;
+    background-color: rgb(253, 233, 233) !important;
+}
+@media screen and ( max-width<992px ) {
+    .el-menu-item {
+        &:hover {    
+            border-bottom: 0 solid #fff !important;
+            background-color: rgb(253, 233, 233) !important;
+            --el-menu-hover-bg-color: rgb(253, 233, 233) !important;
+        }
+  }
+}
 
 .el-sub-menu__title:focus, .el-sub-menu__title:hover{  
 //   background-color: aqua !important;

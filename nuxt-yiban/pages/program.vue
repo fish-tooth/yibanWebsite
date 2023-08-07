@@ -41,8 +41,7 @@
           </div>
         </div>
         <video class="video"
-          poster="https://img.js.design/assets/img/63841db370139645b61f7887.png#68c43d6f1a06b5512316ea25cbdc98d5"
-          @mouseenter="" @mouseleave="">
+          poster="https://img.js.design/assets/img/63841db370139645b61f7887.png#68c43d6f1a06b5512316ea25cbdc98d5">
           <!-- 添加视频 -->
           <div class="nameBg">
             <div class="projectName">“以爱之名，伴你成长”青少年关爱帮扶活动</div>
@@ -51,36 +50,18 @@
       </div>
       <!-- 数据展示 -->
       <div class="dataShow">
-        <div class="data1" v-for="(item,index) in showData" :key="index">
+        <div class="data1" v-for="(item,index) in dataList" :key="index">
           <div class="dataNum1">
             <!-- <span style="border-bottom: 2px solid rgba(173, 106, 106, 1)">4</span> -->
             <CountTo
                   class="num"
                   :start-val="0"
-                  :end-val="item.num"
+                  :end-val="Number(item.data)"
                   :duration="2000"
             />
           </div>
           <div class="dataTitle1">{{ item.title }}</div>
         </div>
-        <!-- <div class="data2">
-          <div class="dataNum2">
-            <span style="border-bottom: 2px solid rgba(173, 106, 106, 1)">5100</span>
-          </div>
-          <div class="dataTitle2">志愿者人数</div>
-        </div>
-        <div class="data3">
-          <div class="dataNum3">
-            <span style="border-bottom: 2px solid rgba(173, 106, 106, 1)">3124</span>
-          </div>
-          <div class="dataTitle3">服务学生数</div>
-        </div>
-        <div class="data4">
-          <div class="dataNum4">
-            <span style="border-bottom: 2px solid rgba(173, 106, 106, 1)">2140</span>
-          </div>
-          <div class="dataTitle4">课堂总量</div>
-        </div> -->
       </div>
       <!-- 经典案例 -->
       <div class="botm-box">
@@ -127,7 +108,8 @@
           <!-- <span class="blogText">BLOG</span> -->
         </div>
         <div class="swiperBox">
-          <Swiper />
+          <VolunStoriesSwiper />
+          
         </div>
       </div>
     </div>
@@ -136,26 +118,39 @@
 
 <script setup lang="ts">
 import Layout from "@/layouts/default.vue";
+import { getProgramData } from "@/api"
 
-const showData = reactive([
+const dataList = reactive([
   {
-    num: 4,
-    title: '项目总数'
+    title: '项目总数',
+    data: 4
   },
   {
-    num: 5000,
-    title: '志愿者人数'
+    title: '志愿者人数',
+    data: 5000
   },
   {
-    num: 60000,
-    title: '服务学生数'
+    title: '服务学生数',
+    data: 60000
   },
   {
-    num: 2140,
-    title: '课堂总量'
+    title: '课堂总量',
+    data: 2140
   }
 
-])
+]);
+
+// const dataList = ref([{},{},{}]);
+// const getDataList = async () => {  // 获取展示数据
+//   const res = await getProgramData();
+//   console.log('dataList',res);
+//   if (res?.code == 200) {
+//       dataList.value = res?.result; 
+//   } 
+// }
+// watchEffect(() => {
+//       getDataList();
+// });
 
 
 </script>
@@ -199,7 +194,7 @@ $rightCubeHeight: 857px;
   width: 56%;
   height: $rightCubeHeight;
   background: rgba(223, 114, 113, 1);
-  box-shadow: 0px 4px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 18px 12px 12px 6px rgba(0, 0, 0, 0.25);
 }
 
 .pre-photo {

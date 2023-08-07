@@ -2,7 +2,7 @@
     <Layout>
     <div>
         <!-- 顶部背景组件 -->
-        <CommonTop :slogan="slogan" />
+        <CommonTop :title="title" :intro="intro"/>
         <!-- 导航栏 -->
         <el-row justify="space-around" class="navs-row">
             <el-col :span="6" v-for="(item, index) in navsList" :key="index">
@@ -31,7 +31,9 @@
 <script setup lang="ts">
 import Layout from "@/layouts/default.vue";
 
-const slogan = reactive(['信息公开'])
+// 顶部遮罩文字
+const title = ['信息公开'];
+const intro = "让每个孩子都能享受更高水平、更有质量的教育"
 
 const navsList = reactive(['审计报告','年度报告','商标合作'])
 
@@ -53,11 +55,11 @@ const navsList = reactive(['审计报告','年度报告','商标合作'])
   height: 87px;
   font-family: 'AlibabaPuHuiTi';
   font-size: 36px;
-//   font-weight: 700;
   line-height: 87px;
   text-align: center;
   color: rgba(255, 255, 255, 1);
   background-color: rgb(238, 104, 104);
+//   background: rgba(223, 114, 113, 0.15);
   box-shadow: 0px 6px 8px  rgba(0, 0, 0, 0.25)
 }
 /** 主体内容 */
